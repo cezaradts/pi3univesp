@@ -114,7 +114,7 @@ const Index = () => {
       <div className="w-full max-w-2xl rounded-2xl bg-card shadow-xl overflow-hidden">
         {/* Header */}
         <div className="bg-primary py-5 px-6">
-          <h1 className="text-2xl md:text-3xl font-bold text-primary-foreground text-center italic">
+          <h1 className="text-3xl md:text-5xl font-bold text-primary-foreground text-center italic">
             Aplicativo de Cálculo Financeiro
           </h1>
         </div>
