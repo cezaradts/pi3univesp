@@ -118,7 +118,10 @@ const Index = () => {
             Aplicativo de Cálculo Financeiro
           </h1>
         </div>
-
+<p style={{ textAlign: "center", marginBottom: "20px" }}>
+Informe três valores e deixe um em branco. 
+O sistema calculará automaticamente o valor faltante.
+</p>
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6">
           {cards.map(({ key, label, prefix, suffix, color }) => (
