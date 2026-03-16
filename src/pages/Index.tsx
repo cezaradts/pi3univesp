@@ -137,12 +137,21 @@ O sistema calculará automaticamente o valor faltante.
                 {prefix && <span className="text-lg font-medium opacity-80">{prefix}</span>}
                 <input
                   type="text"
-                  inputMode="decimal"
-                  value={values[key]}
-                  onChange={(e) => handleChange(key, e.target.value)}
-                  placeholder="0"
-                  className="bg-transparent text-center text-3xl font-bold placeholder:text-primary-foreground/50 outline-none min-w-[180px] border-none"
-                />
+  inputMode="decimal"
+  value={values[key]}
+  onChange={(e) => handleChange(key, e.target.value)}
+  placeholder="0"
+  className={`
+    bg-transparent 
+    text-center 
+    font-bold 
+    placeholder:text-primary-foreground/50 
+    outline-none 
+    w-full 
+    border-none
+    ${values[key].length > 10 ? "text-xl" : values[key].length > 6 ? "text-2xl" : "text-4xl"}
+  `}
+/>
                 {suffix && <span className="text-lg font-medium opacity-80">{suffix}</span>}
               </div>
             </div>
