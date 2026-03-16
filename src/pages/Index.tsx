@@ -141,7 +141,7 @@ O sistema calculará automaticamente o valor faltante.
                   value={values[key]}
                   onChange={(e) => handleChange(key, e.target.value)}
                   placeholder="0"
-                  className="bg-transparent text-center text-4xl font-bold placeholder:text-primary-foreground/50 outline-none w-28 border-none"
+                  className="bg-transparent text-center text-3xl font-bold placeholder:text-primary-foreground/50 outline-none min-w-[180px] border-none"
                 />
                 {suffix && <span className="text-lg font-medium opacity-80">{suffix}</span>}
               </div>
