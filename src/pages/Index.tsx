@@ -2,6 +2,22 @@ import { useState } from "react";
 
 type FieldKey = "valorVista" | "qtdParcelas" | "valorParcela" | "taxaJuros";
 
+// Formata número no padrão brasileiro: 1.234,56
+const formatBRL = (raw: string, decimals: number): string => {
+  const digits = raw.replace(/\D/g, "");
+  if (digits === "") return "";
+  const padded = digits.padStart(decimals + 1, "0");
+  const intPart = padded.slice(0, padded.length - decimals).replace(/^0+(?!$)/, "");
+  const decPart = padded.slice(padded.length - decimals);
+  const intFormatted = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return `${intFormatted},${decPart}`;
+};
+
+// Remove formatação e converte para float
+const parseBRL = (val: string): number => {
+  return parseFloat(val.replace(/\./g, "").replace(",", "."));
+};
+
 const Index = () => {
   const [values, setValues] = useState<Record<FieldKey, string>>({
     valorVista: "",
@@ -12,7 +28,13 @@ const Index = () => {
   const [result, setResult] = useState<FieldKey | null>(null);
 
   const handleChange = (key: FieldKey, val: string) => {
-    setValues((prev) => ({ ...prev, [key]: val }));
+    let formatted: string;
+    if (key === "qtdParcelas") {
+      formatted = val.replace(/\D/g, "");
+    } else {
+      formatted = formatBRL(val, 2);
+    }
+    setValues((prev) => ({ ...prev, [key]: formatted }));
     setResult(null);
   };
 
@@ -30,10 +52,10 @@ const Index = () => {
     }
 
     const target = empty[0];
-    const pv = parseFloat(values.valorVista.replace(",", "."));
+    const pv = parseBRL(values.valorVista);
     const n = parseInt(values.qtdParcelas);
-    const pmt = parseFloat(values.valorParcela.replace(",", "."));
-    const iInput = parseFloat(values.taxaJuros.replace(",", "."));
+    const pmt = parseBRL(values.valorParcela);
+    const iInput = parseBRL(values.taxaJuros);
 
     // Validate filled fields
     for (const k of filled) {
@@ -53,7 +75,7 @@ const Index = () => {
       } else {
         computed = pmt * (1 - Math.pow(1 + i, -n)) / i;
       }
-      setValues((prev) => ({ ...prev, valorVista: computed.toFixed(2).replace(".", ",") }));
+      setValues((prev) => ({ ...prev, valorVista: formatBRL(computed.toFixed(2).replace(".", ""), 2) }));
     } else if (target === "qtdParcelas") {
       const i = iInput / 100;
       if (i === 0) {
@@ -69,11 +91,11 @@ const Index = () => {
       } else {
         computed = pv * i / (1 - Math.pow(1 + i, -n));
       }
-      setValues((prev) => ({ ...prev, valorParcela: computed.toFixed(2).replace(".", ",") }));
+      setValues((prev) => ({ ...prev, valorParcela: formatBRL(computed.toFixed(2).replace(".", ""), 2) }));
     } else {
       // taxa de juros - Newton's method
       if (pmt * n === pv) {
-        setValues((prev) => ({ ...prev, taxaJuros: "0,00" }));
+        setValues((prev) => ({ ...prev, taxaJuros: formatBRL("000", 2) }));
         setResult(target);
         return;
       }
@@ -92,7 +114,7 @@ const Index = () => {
         guess = newGuess;
       }
       computed = guess * 100;
-      setValues((prev) => ({ ...prev, taxaJuros: computed.toFixed(2).replace(".", ",") }));
+      setValues((prev) => ({ ...prev, taxaJuros: formatBRL(computed.toFixed(2).replace(".", ""), 2) }));
     }
     setResult(target);
   };
