@@ -181,46 +181,19 @@ O sistema calculará automaticamente o valor faltante.
         </div>
 
         {/* Buttons */}
-   <div className="flex gap-3 px-6 pb-6 justify-center">
-  <button
-    onClick={calculate}
-    className="bg-primary ..."
-  >
-    Calcular
-  </button>
-
-  <button
-    onClick={clear}
-    className="bg-muted ..."
-  >
-    Limpar
-  </button>
-</div>  
-
-
-
-<div className="px-6 pb-6">
-  <div className="mt-4 bg-white rounded-xl p-5 shadow text-center">
-    <h3>Resumo do Pagamento</h3>
-
-    <p>Parcelas: <strong>{values.qtdParcelas || 0}x</strong></p>
-    <p>Valor da Parcela: <strong>R$ {values.valorParcela || "0,00"}</strong></p>
-
-    <hr />
-
-    <p>
-      <strong>
-        Total: R$ {
-          (
-            (parseBRL(values.qtdParcelas || "0") || 0) *
-            (parseBRL(values.valorParcela || "0") || 0)
-          ).toFixed(2)
-        }
-      </strong>
-    </p>
-  </div>
-</div>
-</div>
+        <div className="flex gap-3 px-6 pb-6 justify-center">
+          <button
+            onClick={calculate}
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold py-3 px-8 rounded-lg transition-colors text-lg"
+          >
+            Calcular
+          </button>
+          <button
+            onClick={clear}
+            className="bg-muted hover:bg-muted/80 text-muted-foreground font-bold py-3 px-8 rounded-lg transition-colors text-lg"
+          >
+            Limpar
+          </button>
         </div>
       </div>
     </div>
