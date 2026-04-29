@@ -26,7 +26,9 @@ const Index = () => {
     taxaJuros: "",
   });
   const [result, setResult] = useState<FieldKey | null>(null);
-
+const totalParcelas =
+  parseInt(values.qtdParcelas || "0") *
+  parseBRL(values.valorParcela || "0");
   const handleChange = (key: FieldKey, val: string) => {
     let formatted: string;
     if (key === "qtdParcelas") {
@@ -146,6 +148,23 @@ O sistema calculará automaticamente o valor faltante.
 </p>
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6">
+          <div className="bg-pink-500 rounded-xl p-5 text-white">
+  <p className="text-sm font-semibold text-center opacity-90 mb-1">
+    Total das Parcelas
+  </p>
+  <hr className="border-white/40 mb-3" />
+  <div className="flex items-baseline justify-center gap-1">
+    <span className="text-lg font-medium opacity-80">R$</span>
+    <span className="text-3xl font-bold">
+      {isNaN(totalParcelas)
+        ? "0,00"
+        : totalParcelas.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+          }).replace("R$", "").trim()}
+    </span>
+  </div>
+</div>
           {cards.map(({ key, label, prefix, suffix, color }) => (
             <div
               key={key}
