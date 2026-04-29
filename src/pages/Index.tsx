@@ -47,7 +47,7 @@ const Index = () => {
     );
 
     if (empty.length !== 1) {
-      alert("Deixe exatamente UMA campo em branco para calcular.");
+      alert("Deixe exatamente UM campo em branco para calcular.");
       return;
     }
 
