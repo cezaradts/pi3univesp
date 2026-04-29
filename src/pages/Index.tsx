@@ -144,7 +144,7 @@ const totalParcelas =
         </div>
 <p style={{ textAlign: "center", marginBottom: "20px" }}>
 Informe três valores e deixe um em branco. 
-O sistema calculará automaticamente o valor faltante.
+O sistema calculará automaticamente o valor faltante. O Primeoro quadro (rosa) apresentará o valor total da soma de todas as parcelas.
 </p>
         {/* Cards grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-6">
